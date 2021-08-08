@@ -1,0 +1,19 @@
+{
+  "name": "easierspeak-backend",
+  "version": "1.0.0",
+  "description": "easierSpeak backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abraomukas/easierSpeak-backend.git"
+  },
+  "author": "Abraomukas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abraomukas/easierSpeak-backend/issues"
+  },
+  "homepage": "https://github.com/Abraomukas/easierSpeak-backend#readme"
+}
