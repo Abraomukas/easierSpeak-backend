@@ -1,12 +1,45 @@
 const express = require("express");
 const cors = require("cors");
+const expressFormData = require("express-form-data");
+const mongoose = require("mongoose");
+const cloudinary = require("cloudinary").v2;
+const passport = require("passport");
+// imports for JWT
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
 
 require("dotenv").config();
 
 const jwtSecret = process.env.JWT_SECRET;
+const passportJwtConfig = {
+	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+	secretOrKey: jwtSecret,
+};
 
-const membersRoutes = require("./routes/Members");
-const clubsRoutes = require("/routes/Clubs");
+// read the payload of the JWT
+const passportJwt = (passport) => {
+	// configure passport to use passport-jwt
+	passport.use(
+		new JwtStrategy(passportJwtConfig, (jwtPayload, done) => {
+			// find and extract the user by their id, which is inside the JWT
+			HumansModel.findOne({ _id: jwtPayload.id })
+				.then(
+					// if the document is found
+					(dbDocument) => {
+						return done(null, dbDocument);
+					}
+				)
+				.catch((error) => {
+					return done(null, null);
+				});
+		})
+	);
+};
+
+passportJwt(passport);
+
+const membersRoutes = require("./routes/members");
+const clubsRoutes = require("./routes/clubs");
 
 const server = express();
 // read HTTP's body
